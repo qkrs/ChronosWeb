@@ -3,39 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORMA - Software a Medida | Montevideo, Uruguay</title>
+    <title>FORMA - Software a Medida | Desarrollo Web y Apps | Montevideo, Uruguay</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="FORMA desarrolla software a medida, aplicaciones web, sistemas empresariales y apps móviles desde Montevideo, Uruguay. Soluciones tecnológicas personalizadas para tu empresa.">
+    <meta name="keywords" content="software a medida, desarrollo web, aplicaciones móviles, sistemas empresariales, Montevideo, Uruguay, programación, tecnología">
+    <meta name="author" content="FORMA - Software a Medida">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://forma.uy">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forma.uy">
+    <meta property="og:title" content="FORMA - Software a Medida | Montevideo, Uruguay">
+    <meta property="og:description" content="Desarrollamos software a medida, aplicaciones web y sistemas empresariales desde Montevideo, Uruguay. Soluciones tecnológicas personalizadas para tu empresa.">
+    <meta property="og:image" content="https://forma.uy/images/og-image.jpg">
+    <meta property="og:locale" content="es_UY">
+    <meta property="og:site_name" content="FORMA">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://forma.uy">
+    <meta property="twitter:title" content="FORMA - Software a Medida | Montevideo, Uruguay">
+    <meta property="twitter:description" content="Desarrollamos software a medida, aplicaciones web y sistemas empresariales desde Montevideo, Uruguay.">
+    <meta property="twitter:image" content="https://forma.uy/images/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600&display=swap" as="style">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "FORMA",
+        "description": "Desarrollo de software a medida, aplicaciones web y sistemas empresariales",
+        "url": "https://forma.uy",
+                        "logo": "https://forma.uy/images/9.png",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Italia 4567",
+            "addressLocality": "Buceo",
+            "addressRegion": "Montevideo",
+            "addressCountry": "UY"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+598-XXX-XXXX",
+            "contactType": "customer service",
+            "email": "hola@forma.uy"
+        },
+        "sameAs": [
+            "https://linkedin.com/company/forma-uy",
+            "https://github.com/forma-uy"
+        ]
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'FORMA - Software a Medida',
+            page_location: window.location.href
+        });
+    </script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            // Measure page load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log('Page load time:', loadTime + 'ms');
+            
+            // Measure Core Web Vitals
+            if ('web-vital' in window) {
+                // This would require the web-vitals library
+                // getCLS(console.log);
+                // getFID(console.log);
+                // getFCP(console.log);
+                // getLCP(console.log);
+                // getTTFB(console.log);
+            }
+            
+            // Track form interactions
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function() {
+                    gtag('event', 'form_submit', {
+                        'form_name': this.name || 'contact_form',
+                        'page_location': window.location.href
+                    });
+                });
+            });
+            
+            // Track button clicks
+            const buttons = document.querySelectorAll('button, .btn-primary, .btn-secondary');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    gtag('event', 'button_click', {
+                        'button_text': this.textContent.trim(),
+                        'button_class': this.className,
+                        'page_location': window.location.href
+                    });
+                });
+            });
+            
+            // Track scroll depth
+            let maxScroll = 0;
+            window.addEventListener('scroll', function() {
+                const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollPercent > maxScroll) {
+                    maxScroll = scrollPercent;
+                    if (maxScroll % 25 === 0) { // Track at 25%, 50%, 75%, 100%
+                        gtag('event', 'scroll_depth', {
+                            'scroll_percent': maxScroll,
+                            'page_location': window.location.href
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar"></div></div>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Navegación principal">
         <div class="nav-container">
-            <div class="logo">
+            <a href="#inicio" class="logo" aria-label="FORMA - Ir al inicio">
                 <div class="logo-symbol">
-                    <img src="images/1.png" alt="FORMA Logo" width="32" height="32">
+                    <img src="images/9.png" alt="FORMA Logo" width="32" height="32" loading="eager" class="brand-logo light">
+                    <img src="images/8.png" alt="FORMA Logo" width="32" height="32" loading="eager" class="brand-logo dark">
                 </div>
                 <span class="logo-text">forma</span>
+            </a>
+            <div class="nav-links" role="menubar">
+                <a href="#inicio" role="menuitem" aria-current="page">Inicio</a>
+                <a href="#nosotros" role="menuitem">Nosotros</a>
+                <a href="#servicios" role="menuitem">Servicios</a>
+                <a href="#valores" role="menuitem">Valores</a>
+                <a href="#contacto" role="menuitem">Contacto</a>
             </div>
-            <div class="nav-links">
-                <a href="#inicio">Inicio</a>
-                <a href="#nosotros">Nosotros</a>
-                <a href="#servicios">Servicios</a>
-                <a href="#valores">Valores</a>
-                <a href="#contacto">Contacto</a>
-            </div>
-            <div class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-controls">
+                <button class="theme-toggle" aria-label="Cambiar tema" title="Cambiar entre tema claro y oscuro">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero">
+    <section id="inicio" class="hero hero--modern" role="banner">
         <div class="hero-container">
-            <div class="hero-content">
+            <div class="hero-content hero-content--center">
+                <div class="imagotipo">
+                    <img src="images/9.png" alt="Símbolo FORMA" width="72" height="72" loading="eager" class="brand-symbol light">
+                    <img src="images/8.png" alt="Símbolo FORMA" width="72" height="72" loading="eager" class="brand-symbol dark">
+                    <span class="brand-text">forma</span>
+                </div>
                 <h1 class="hero-title">
                     Diseñamos <span class="highlight">software a medida</span> 
                     que transforma ideas en realidad digital
@@ -45,15 +207,34 @@
                     modulares y elegantes para empresas que buscan destacar.
                 </p>
                 <div class="hero-cta">
-                    <a href="#contacto" class="btn-primary">Conversemos tu proyecto</a>
-                    <a href="#nosotros" class="btn-secondary">Conocé más</a>
+                    <a href="#contacto" class="btn-primary magnetic" role="button">Conversemos tu proyecto</a>
+                    <a href="#nosotros" class="btn-secondary magnetic" role="button">Conocé más</a>
                 </div>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual hero-visual--orbs" aria-hidden="true">
                 <div class="geometric-shape shape-1"></div>
                 <div class="geometric-shape shape-2"></div>
                 <div class="geometric-shape shape-3"></div>
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
             </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Values Marquee -->
+    <section class="marquee" aria-label="Valores de FORMA">
+        <div class="marquee-track">
+            <span>Diseño inteligente</span>
+            <span>Colaboración modular</span>
+            <span>Simplicidad funcional</span>
+            <span>Transformación constante</span>
+            <span>Diseño inteligente</span>
+            <span>Colaboración modular</span>
+            <span>Simplicidad funcional</span>
+            <span>Transformación constante</span>
         </div>
     </section>
 
@@ -85,7 +266,8 @@
                 <div class="about-visual">
                     <div class="card floating">
                         <div class="card-icon">
-                            <img src="images/2.png" alt="FORMA Software a Medida" width="48" height="48">
+                            <img src="images/9.png" alt="FORMA Software a Medida" width="48" height="48" class="brand-logo light">
+                            <img src="images/8.png" alt="FORMA Software a Medida" width="48" height="48" class="brand-logo dark">
                         </div>
                         <h4>Software a Medida</h4>
                         <p>Soluciones únicas para cada cliente</p>
@@ -169,26 +351,13 @@
     <!-- Contact Section -->
     <section id="contacto" class="contact">
         <div class="container">
-            <div class="contact-content">
+            <div class="contact-content solo-email">
                 <div class="contact-info">
                     <h2>Conversemos tu proyecto</h2>
                     <p class="contact-subtitle">
-                        ¿Tenés una idea? Nos encanta escuchar sobre nuevos desafíos 
-                        y crear soluciones que marquen la diferencia.
+                        Preferimos la simplicidad. Escribinos y coordinamos.
                     </p>
                     <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10Z" stroke="#5A4FCF" stroke-width="2"/>
-                                    <circle cx="12" cy="10" r="3" stroke="#5A4FCF" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>Ubicación</h4>
-                                <p>Av. Italia 4567, Buceo<br>Montevideo, Uruguay</p>
-                            </div>
-                        </div>
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -198,27 +367,13 @@
                             </div>
                             <div>
                                 <h4>Email</h4>
-                                <p>hola@forma.uy</p>
+                                <p><a class="email-link" href="mailto:hola@forma.uy">hola@forma.uy</a></p>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="contact-form-container">
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Tu email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="empresa" name="empresa" placeholder="Tu empresa (opcional)">
-                        </div>
-                        <div class="form-group">
-                            <textarea id="mensaje" name="mensaje" placeholder="Contanos sobre tu proyecto" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary full-width">Enviar mensaje</button>
-                    </form>
+                    <div class="email-cta">
+                        <a class="btn-primary" href="mailto:hola@forma.uy">Escribinos</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -231,7 +386,8 @@
                 <div class="footer-logo">
                     <div class="logo">
                         <div class="logo-symbol">
-                            <img src="images/3.png" alt="FORMA Logo" width="32" height="32">
+                            <img src="images/9.png" alt="FORMA Logo" width="32" height="32" class="brand-logo light">
+                            <img src="images/8.png" alt="FORMA Logo" width="32" height="32" class="brand-logo dark">
                         </div>
                         <span class="logo-text">forma</span>
                     </div>
@@ -258,10 +414,34 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 FORMA. Todos los derechos reservados.</p>
+                <p>&copy; 2025 FORMA. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="images/9.png" alt="FORMA Logo" width="64" height="64" class="brand-logo light">
+                <img src="images/8.png" alt="FORMA Logo" width="64" height="64" class="brand-logo dark">
+                <span class="loading-text">forma</span>
+            </div>
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" title="Volver arriba">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- Skip to Content Link -->
+    <a href="#inicio" class="skip-link">Saltar al contenido principal</a>
 
     <script src="script.js"></script>
 </body>

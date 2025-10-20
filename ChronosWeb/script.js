@@ -1,5 +1,11 @@
-// FORMA - JavaScript functionality
+// FORMA - Enhanced JavaScript functionality
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // Initialize theme
+    initializeTheme();
+    
+    // Initialize loading screen
+    initializeLoadingScreen();
     
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('a[href^="#"]');
@@ -15,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: offsetTop,
                     behavior: 'smooth'
                 });
+                
+                // Update active nav link
+                updateActiveNavLink(targetId);
+                
+                // Close mobile menu if open
+                closeMobileMenu();
             }
         });
     });
@@ -27,8 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.addEventListener('click', function() {
             navLinks_mobile.classList.toggle('active');
             navToggle.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', 
+                navToggle.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'
+            );
         });
     }
+    
+    // Theme toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Scroll progress bar
+    initializeScrollProgress();
 
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
@@ -68,37 +92,18 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Contact form handling
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            
-            // Show loading state
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            submitButton.textContent = 'Enviando...';
-            submitButton.disabled = true;
-            
-            // Simulate form submission (replace with actual form handling)
-            setTimeout(() => {
-                alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
-                this.reset();
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            }, 2000);
-            
-            // In a real implementation, you would send the data to your server
-            console.log('Form data:', formObject);
-        });
-    }
+    // Contact form removed: no initialization needed
+    
+    // Back to top button
+    initializeBackToTop();
+    
+    // Intersection Observer for animations
+    initializeScrollAnimations();
+
+    // Magnetic buttons
+    initializeMagneticButtons();
+
+    // Tilt hover (removed for works) keep available if needed elsewhere
 
     // Add typing animation to hero title
     const heroTitle = document.querySelector('.hero-title');
@@ -150,36 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Counter animation for value cards
-    const valueNumbers = document.querySelectorAll('.value-number');
-    const counterObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const number = entry.target;
-                const finalNumber = number.textContent;
-                let currentNumber = 0;
-                const increment = 1;
-                const duration = 1000; // 1 second
-                const stepTime = duration / parseInt(finalNumber);
-                
-                const timer = setInterval(() => {
-                    currentNumber += increment;
-                    if (currentNumber <= parseInt(finalNumber)) {
-                        number.textContent = String(currentNumber).padStart(2, '0');
-                    } else {
-                        number.textContent = finalNumber;
-                        clearInterval(timer);
-                    }
-                }, stepTime);
-                
-                counterObserver.unobserve(number);
-            }
-        });
-    });
-
-    valueNumbers.forEach(number => {
-        counterObserver.observe(number);
-    });
+    // Stats removed
 
     // Add CSS animations
     const style = document.createElement('style');
@@ -247,34 +223,152 @@ function isInViewport(element) {
     );
 }
 
+// Theme Management
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+// Loading Screen
+function initializeLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+    }
+}
+
+// Navigation helpers
+function updateActiveNavLink(targetId) {
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.removeAttribute('aria-current');
+        if (link.getAttribute('href') === targetId) {
+            link.setAttribute('aria-current', 'page');
+        }
+    });
+}
+
+function closeMobileMenu() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) {
+        navLinks.classList.remove('active');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Form and testimonials removed
+
+// Back to top button
+function initializeBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+}
+
+// Scroll animations
+function initializeScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.service-card, .value-card, .card, .work-card');
+    animateElements.forEach(el => {
+        observer.observe(el);
+    });
+}
+
 // Add loading animation
 window.addEventListener('load', function() {
     document.body.classList.add('loaded');
-    
-    // Add CSS for loading animation
-    const loadingStyle = document.createElement('style');
-    loadingStyle.textContent = `
-        body {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        
-        body.loaded {
-            opacity: 1;
-        }
-        
-        .hero-content {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease-out 0.5s forwards;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    `;
-    document.head.appendChild(loadingStyle);
 });
+
+// Scroll progress
+function initializeScrollProgress() {
+    const bar = document.querySelector('.scroll-progress__bar');
+    if (!bar) return;
+    const onScroll = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = progress + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+}
+
+// Magnetic buttons
+function initializeMagneticButtons() {
+    const magnets = document.querySelectorAll('.magnetic');
+    const strength = 20;
+    magnets.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const relX = e.clientX - rect.left - rect.width / 2;
+            const relY = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${relX / strength}px, ${relY / strength}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0,0)';
+        });
+    });
+}
+
+// Tilt hover cards
+function initializeTiltCards() {
+    const cards = document.querySelectorAll('.tilt');
+    cards.forEach(card => {
+        const damp = 20;
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotateY = ((x / rect.width) - 0.5) * 8;
+            const rotateX = ((y / rect.height) - 0.5) * -8;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0) rotateY(0)';
+        });
+    });
+}
